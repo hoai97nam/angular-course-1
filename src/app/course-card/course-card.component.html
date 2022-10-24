@@ -1,0 +1,38 @@
+<ng-container *ngIf="course">
+    <div class="course-card"
+    [ngClass]="cardClasses()">
+
+    <div class="course-title">
+        {{ courseId + ' ' + course.description }}
+    </div>
+    
+
+    <ng-template #blankImage>
+        <p class="warn">{{course.description}} has no image yet.</p>
+        <img src="../../assets/empty-image.png" alt=" ">
+    </ng-template>
+
+    <ng-content select="course-image"
+        *ngIf="course.iconUrl; else noImage"></ng-content>
+
+    <ng-template #noImage>
+        <ng-container *ngTemplateOutlet="noImgTpl; context: {description: course.description}"></ng-container>
+    </ng-template>
+
+    <div class="course-description">
+        {{course.longDescription}}
+    </div>
+    <ng-container [ngSwitch]="course.category">
+        <div class="course-category">
+            <ng-container *ngSwitchCase="'BEGINNER'">
+                <div class="category">Beginner</div>
+            </ng-container>
+            <div class="category" *ngSwitchCase="'INTERMEDIATE'">Intermediate</div>
+            <div class="category" *ngSwitchCase="'ADVANCED'">Advanced</div>
+            <div class="category" *ngSwitchDefault>All Levels</div>
+        </div>
+    </ng-container>
+    <button (click)="courseSelected()">View Course</button>
+
+</div>
+</ng-container>
