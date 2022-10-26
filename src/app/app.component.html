@@ -1,7 +1,6 @@
 <div class="top-menu">
 
-    <img class="logo"
-         src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
+    <img class="logo" src="https://angular-academy.s3.amazonaws.com/main-logo/main-page-logo-small-hat.png">
 
 </div>
 
@@ -9,13 +8,12 @@
 
 <div class="courses" *ngIf="courses[0] as course">
 
-    <course-card
-            (courseSelected)="onCourseSelected($event)"
-                 [course]="course">
+    <course-card highlighted #highlighter="hl" (toggleHighlight)="onToggle($event)"
+        (courseSelected)="onCourseSelected($event)" [course]="course">
 
-        <course-image [src]="course.iconUrl"></course-image>
+        <course-image *ngxUnless="!course.iconUrl" [src]="course.iconUrl"></course-image>
 
-        <div class="course-description">
+        <div class="course-description" (dblclick)="highlighter.toggle()">
             {{ course.longDescription }}
         </div>
 
@@ -23,5 +21,3 @@
 
 
 </div>
-
-
