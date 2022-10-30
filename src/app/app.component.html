@@ -5,11 +5,16 @@
 
 </div>
 
+<div class="demo">
+  <button (click)="onEditDesc()" i18n>Edit Description</button>
+</div>
+
 <div>
 
   <div class="courses">
 
-    <course-card *ngFor="let course of courses"
+    <course-card *ngFor="let course of (courses | filterByCategory: 'BEGINNER' )"
+                  (courseChanged)="save($event)"
                  [course]="course">
 
       <course-image [src]="course.iconUrl"></course-image>
